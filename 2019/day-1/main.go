@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 func main() {
@@ -21,9 +22,11 @@ func run() error {
 
 	var total int
 	for _, datum := range data {
-		n, err := strconv.Atoi(datum)
+		datum2 := strings.Replace(datum, "\r", "", -1)
+
+		n, err := strconv.Atoi(datum2)
 		if err != nil {
-		    return err
+			continue
 		}
 
 		total += fuelNeeded(n)
@@ -33,9 +36,11 @@ func run() error {
 
 	var total2 int
 	for _, datum := range data {
-		mass, err := strconv.Atoi(datum)
+		datum2 := strings.Replace(datum, "\r", "", -1)
+
+		mass, err := strconv.Atoi(datum2)
 		if err != nil {
-			return err
+			continue
 		}
 
 		for mass > 0 {
