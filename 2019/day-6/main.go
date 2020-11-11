@@ -21,13 +21,16 @@ func run() error {
 	}
 
 	for _, s := range d {
-		if len(s) < 3 {
+		p := strings.Replace(s, "\r", "", -1)
+		if len(p) < 3 {
 			continue
 		}
-		fmt.Println(s)
-		p := strings.Index(s, ")")
-		a := s[:p]
-		b := s[p+1:]
+
+		n := strings.Index(p, ")")
+
+		a := p[:n]
+		b := p[n+1:]
+
 		data[b] = a
 	}
 
