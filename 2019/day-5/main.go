@@ -24,60 +24,30 @@ func main() {
 
 func run() error {
 	for i := 0; i < len(morphingInput); i += step {
-		// Set step to 4 by default
-		step = 4
-
 		// Returns 4 number instruction instructions [0, 0, 0, 00]
 		instruction := getOpcodeInstructions(morphingInput[i])
 		opcode := instruction[3]
 		param1Mode := instruction[2]
 		param2Mode := instruction[1]
 
-		// Validate that next parameters are valid
+		// Halt on opcode 99
 		if opcode == 99 {
 			fmt.Printf("\n[OPCODE 99] Halting.\n")
 			break
 		}
-		if opcode < 3 {
-			if i + 3 >= len(morphingInput) {
-				fmt.Printf("\nNot enough parameters to continue. Halting.\n")
-				break
-			}
-		} else {
+
+		// Input/Output opcodes handles=d and returned first
+		if opcode == 3 || opcode == 4 {
 			if i + 1 >= len(morphingInput) {
 				fmt.Printf("\nNot enough parameters to continue. Halting.\n")
 				break
 			}
-		}
 
-		// Operations 1 & 2 are only for 4 step ops
-		if opcode < 3 {
-			// Get value / value of position for params
-			var param1 = morphingInput[i + 1]
-			if param1Mode == 0 {
-				param1 = morphingInput[param1]
-			}
-			var param2 = morphingInput[i + 2]
-			if param2Mode == 0 {
-				param2 = morphingInput[param2]
-			}
-
-			// Output is always in position mode
-			outPos := morphingInput[i + 3]
-			if outPos >= len(morphingInput) {
-				break
-			}
-
-			// Set output
-			morphingInput[outPos] = getOpcodeValue(opcode, param1, param2)
-		} else {
+			// Set next step
 			step = 2
 
 			// Output is always in position mode
 			outPos := morphingInput[i + 1]
-			if outPos >= len(morphingInput) {
-				break
-			}
 
 			var value int
 			switch opcode {
@@ -88,6 +58,7 @@ func run() error {
 					return err
 				}
 				morphingInput[outPos] = value
+				continue
 			case 4:
 				if param1Mode == 0 {
 					outPos = morphingInput[outPos]
@@ -96,6 +67,48 @@ func run() error {
 				continue
 			}
 		}
+
+		// Validate rest of array length
+		if i + 3 >= len(morphingInput) {
+			fmt.Printf("\nNot enough parameters to continue. Halting.\n")
+			break
+		}
+
+		// Get value / value of position for params
+		var param1 = morphingInput[i + 1]
+		if param1Mode == 0 {
+			param1 = morphingInput[param1]
+		}
+		var param2 = morphingInput[i + 2]
+		if param2Mode == 0 {
+			param2 = morphingInput[param2]
+		}
+
+		// Output is always in position mode
+		outPos := morphingInput[i + 3]
+
+		// Jump if true - jump to instruction pointer if non-zero
+		step = 3
+		if opcode == 5 {
+			if param1 != 0 {
+				i = param2 - step
+			}
+
+			continue
+		}
+
+		// Jump if false - jump to instruction pointer if is zero
+		if opcode == 6 {
+			if param1 == 0 {
+				i = param2 - step
+			}
+
+			continue
+		}
+
+		// Set output
+		step = 4
+		morphingInput[outPos] = getOpcodeValue(opcode, param1, param2)
 	}
 
 	return nil
@@ -107,6 +120,16 @@ func getOpcodeValue(opcode int, num1 int, num2 int) int {
 		return num1 + num2
 	case 2:
 		return num1 * num2
+	case 7:
+		if num1 < num2 {
+			return 1
+		}
+		return 0
+	case 8:
+		if num1 == num2 {
+			return 1
+		}
+		return 0
 	default:
 		return -69
 	}
