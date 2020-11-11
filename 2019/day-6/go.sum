@@ -43,6 +43,9 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/Celbux/utils v0.0.0-20201104162642-8bfab18bdb58 h1:IgMfGT9A0+t9ed7a6KrHpjfSaS0PXsSJNJkWJmNBdC8=
 github.com/Celbux/utils v0.0.0-20201104162642-8bfab18bdb58/go.mod h1:T/0YnQwTEpb7HF9OAkgcQCHa+N983Oo3FMnjtSP2l5o=
+github.com/Grant-James/advent-of-code v0.0.0-20201111105118-7c12e41c9bac h1:L4NkcdFGyJPGlJjU06ewScauA4wo99dFxOXRFKhUkV8=
+github.com/Grant-James/advent-of-code/2019/day-5 v0.0.0-20201111105118-7c12e41c9bac h1:gHaz6+VAwBcvZq63zs18NxkTGycEsx/ikdehN/hkoeE=
+github.com/Grant-James/advent-of-code/2019/day-5 v0.0.0-20201111105118-7c12e41c9bac/go.mod h1:rJo00PG0EDsmo1eOtoFijfRAjSVa0T1RzAnkOYg4ewU=
 github.com/bradfitz/gomemcache v0.0.0-20170208213004-1952afaa557d/go.mod h1:PmM6Mmwb0LSuEubjR8N7PtNe1KxZLtOUHtbeikc5h60=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
 github.com/chzyer/logex v1.1.10/go.mod h1:+Ywpsq7O8HXn0nuIou7OrIPyXbp3wmkHB+jjWRnGsAI=

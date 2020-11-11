@@ -21,6 +21,10 @@ func run() error {
 	}
 
 	for _, s := range d {
+		if len(s) < 3 {
+			continue
+		}
+		fmt.Println(s)
 		p := strings.Index(s, ")")
 		a := s[:p]
 		b := s[p+1:]
