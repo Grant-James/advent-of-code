@@ -41,9 +41,6 @@ func run() error {
 		}
 	}
 
-	//for key, val := range layers {
-	//	fmt.Printf("key: %v val: %v", key, val)
-	//}
 	slice := data[combine*minl:combine*(minl+1)]
 	out := strings.Count(slice, "1") * strings.Count(slice, "2")
 	fmt.Printf("Part 1: %v\n", out)
